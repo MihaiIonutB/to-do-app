@@ -1,9 +1,9 @@
 import React from 'react'
-
+import './mainPage.css';
 function Display(){
     return (
         <div>
-            <h1 className= 'header' style = {{fontSize: '1.5em', textAlign:'center'}}> Welcome </h1>
+            <h1 className= "header"> Welcome </h1>
         </div>
     )
 }
