@@ -1,11 +1,22 @@
 import React, { useState } from 'react'
 import './mainPage.css';
+import Axios from 'axios';
+
+import {useHistory} from 'react-router-dom'
 function UserInput() {
-    const [user, setUser] = useState({ email: '', password: '' });
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    const [user, setUser] = useState({ email: 'ion@admin.com', password: 'admin' });
+    const history = useHistory();
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        try{
         event.preventDefault();
-        console.log(user.email + " ! " + user.password);
-    }
+        const res = await Axios.post(`http://localhost:4000/auth/login`,user)
+        console.log(res);
+        setUser({email: '',password: ''});
+        history.push('/log');
+        }catch(e){
+            console.log(e);
+        }
+} 
     return (
         <div >
             <form className="userInput" onSubmit={handleSubmit} >
@@ -24,4 +35,5 @@ function UserInput() {
         </div>
     )
 }
+
 export default UserInput;

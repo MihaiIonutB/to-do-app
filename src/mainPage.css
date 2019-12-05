@@ -5,8 +5,9 @@ body{
     height: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-image: linear-gradient(red, green);
-}
+    background: rgb(29,112,2);
+    background: linear-gradient(215deg, green 3%,white 100%);
+} 
 .header{
     font-size: 1.5em;
     text-align: center;
