@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './FirstComponent';
-import Display from './Header_Comp'
 import * as serviceWorker from './serviceWorker'; // eslint-disable-next-line
-import { BrowserRouter,Switch,Route,Link } from 'react-router-dom';
+import { DisplayPage } from './page-control';
 
+//react-router
 ReactDOM.render(
-    <BrowserRouter>
-    <Route path="/log" component={Display}/>
-    <App />
-  </BrowserRouter>
+    <DisplayPage/>
     ,document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
