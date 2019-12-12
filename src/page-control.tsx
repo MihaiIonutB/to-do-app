@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import App from './login-page';
-import * as serviceWorker from './serviceWorker'; // eslint-disable-next-line
+// eslint-disable-next-line
 import { BrowserRouter,Route } from 'react-router-dom';
 import  {ListReturn} from './list-component'
 import {HeaderMsg} from './header-component';
