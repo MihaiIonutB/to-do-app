@@ -5,20 +5,17 @@ import {useHistory} from 'react-router-dom'
 import { UserContext } from './page-control';
 export function InputForm() {
     const {setUser:setGlobalUser} = useContext(UserContext)
-    const [user, setUser] = useState({ email: 'ion@admin.com', password: 'admin' });
+    const [user, setUser,] = useState({ email: 'ion@admin.com', password: 'admin'});
     const history = useHistory();
-    let listData='';
     const [log,setLog]=useState(false);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try{
         event.preventDefault();
         const res= await Axios.post(`http://localhost:4000/auth/login`,user)
-        const data = await Axios.get(`http://localhost:4000/todo/getTodos`);
         console.log(res);
         setUser({email: '',password: ''});
         history.push('/ToDo');
         setGlobalUser(user.email);
-        //user
         }catch(e){
             console.log(e);
         }
