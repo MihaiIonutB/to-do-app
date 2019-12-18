@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Axios from 'axios'
 import moment from 'moment'
-import { useHistory } from 'react-router';
-import { DeleteContext } from './page-control'
+import { ChangeContext } from './page-control'
 import { AddList } from './add-list-component'
 import { DeleteList } from './delete-list-component'
-import { UpdateStatus } from './update-list';
+import { UpdateStatus } from './update-list'
 interface Status {
     _id: string,
     title: string,
@@ -15,35 +14,27 @@ interface Status {
     finishedDate?: Date,
 }
 export function ListReturn() {
-    const { delid } = useContext(DeleteContext)
-    const [list, setList] = useState<Status[]>([]);
-    const history = useHistory();
+    const { conId } = useContext(ChangeContext)
+    const [list, setList] = useState<Status[]>([])
     useEffect(() => {
-        try {
-            async function GetList() {
-                const data = await Axios.get(`http://localhost:4000/todo/getTodos`);
-                console.log(data.data)
-                setList(data.data);
-            }
-            GetList();
+        async function GetList() {
+            const data = await Axios.get(`http://localhost:4000/todo/getTodos`)
+            console.log(data.data)
+            setList(data.data)
         }
-        catch (e) {
-            console.log(e);
-        }
-    }, [delid])
+        GetList()
+    }, [conId])
 
-    return (
-        <div>
-            <div>
-                <AddList></AddList>
-            </div>
-            {list.map(e => <div>
-                {e.title} {e.status} {e.responsable} {moment(e.dueDate).format('l')}
-                <div>
-                <UpdateStatus idof={e._id}/>
-                <DeleteList idof={e._id} />
-                </div>
-            </div>)}
+    return <div>
+        <div className="listPlaceHolder">
+            <AddList /><br />
         </div>
-    )
+        {list.map(e => <div>
+            <div className="listPlaceHolder">
+                Title: {e.title} | Status: {e.status} | Respo: {e.responsable} | Time: {moment(e.dueDate).format('l')}
+                <UpdateStatus idOf={e._id} statusOf={e.status} />
+                <DeleteList idOf={e._id} />
+            </div>
+        </div>)}
+    </div>
 }

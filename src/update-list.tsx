@@ -1,32 +1,26 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import Axios from 'axios'
-import { DeleteContext } from './page-control'
-interface Status{
-    status: "PLANNED" | "IN_PROGRESS" | "DONE" | "BLOCKED",
-}
-export function UpdateStatus(prop:{idof:string}){
-    const {delid,setDelId} = useContext(DeleteContext)
-    const [status,setStatus] = useState("PLANNED")
-    const handleChoice = async(event: React.ChangeEvent<HTMLSelectElement>) =>{
-    try{
-        setStatus(event.currentTarget.value)
-        console.log(event.currentTarget.value)
-        const updatereq = await Axios.post(`http://localhost:4000/todo/updateTodoStatus/${prop.idof}`,status)
-        if(!delid)
-               setDelId(true)        
-    }catch(e){
-        console.log(e)
+import { ChangeContext } from './page-control'
+import { tsPropertySignature } from '@babel/types'
+
+export function UpdateStatus(prop: { idOf: string, statusOf: "PLANNED" | "BLOCKED" | "DONE" | "IN_PROGRESS" }) {
+    const { conId, setConId } = useContext(ChangeContext)
+    const handleChoice = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        try {
+            console.log(event.currentTarget.value)
+            await Axios.post(`http://localhost:4000/todo/updateTodoStatus/${prop.idOf}`, { status: event.currentTarget.value })
+            if (!conId) setConId(true)
+        } catch (e) {
+            console.log(e)
+        }
+        setConId(false)
     }
-    setDelId(false)
-}
-    return(
-        <div>Update:
-            <select onChange={handleChoice}>
-                <option value = "PLANNED" >PLANNED</option>
-                <option value = "IN_PROGRESS" >IN PROGRESS</option>
-                <option value = "DONE" >DONE</option>
-                <option value = "BLOCKED" >BLOCKED</option>
-            </select>
-        </div>
-    )
+    return <div>
+        <select value={prop.statusOf} onChange={handleChoice}>
+            <option value="PLANNED" >PLANNED</option>
+            <option value="IN_PROGRESS" >IN PROGRESS</option>
+            <option value="DONE" >DONE</option>
+            <option value="BLOCKED" >BLOCKED</option>
+        </select>
+    </div>
 }

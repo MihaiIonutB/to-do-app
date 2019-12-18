@@ -1,20 +1,18 @@
-import React, {useContext } from 'react'
+import React, { useContext } from 'react'
 import Axios from 'axios'
-import {DeleteContext} from './page-control'
-export function DeleteList(props: { idof: string }) {
-    const {delid,setDelId} = useContext(DeleteContext)
+import { ChangeContext } from './page-control'
+export function DeleteList(props: { idOf: string }) {
+    const { conId, setConId } = useContext(ChangeContext)
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         try {
-            const deletereq = await Axios.delete(`http://localhost:4000/todo/deleteTodo/${props.idof}`);
-            if(!delid)
-                setDelId(true)
+            await Axios.delete(`http://localhost:4000/todo/deleteTodo/${props.idOf}`)
+            if (!conId) setConId(true)
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
-        setDelId(false)
+        setConId(false)
     }
-    return (
-    <button 
-    onClick={handleClick}>Delete
-    </button>)
+    return <button
+        onClick={handleClick}>Delete
+    </button>
 }

@@ -1,6 +1,12 @@
 html{
     height:100%;
 }
+.listPlaceHolder{
+    padding:5px;
+    margin:5px;
+    border:2px solid;
+    border-color: black;
+}
 body{
     height: 100%;
     background-repeat: no-repeat;
