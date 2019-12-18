@@ -7,7 +7,6 @@ export function InputForm() {
     const {setUser:setGlobalUser} = useContext(UserContext)
     const [user, setUser,] = useState({ email: 'ion@admin.com', password: 'admin'});
     const history = useHistory();
-    const [log,setLog]=useState(false);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try{
         event.preventDefault();

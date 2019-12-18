@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, {useContext } from 'react'
 import Axios from 'axios'
 import {DeleteContext} from './page-control'
 export function DeleteList(props: { idof: string }) {
@@ -14,6 +14,7 @@ export function DeleteList(props: { idof: string }) {
         setDelId(false)
     }
     return (
-    <button onClick={handleClick}>
-         X </button>)
+    <button 
+    onClick={handleClick}>Delete
+    </button>)
 }
