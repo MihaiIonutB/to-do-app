@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
-import Axios from 'axios'
 import moment from 'moment'
 import { ChangeContext } from './page-control'
 import { AddList } from './add-list-component'
 import { DeleteList } from './delete-list-component'
 import { UpdateStatus } from './update-list'
+import { GetById } from './filter-by-id'
+import { getToDos } from './access-points'
 interface Status {
     _id: string,
     title: string,
@@ -14,27 +15,31 @@ interface Status {
     finishedDate?: Date,
 }
 export function ListReturn() {
-    const { conId } = useContext(ChangeContext)
-    const [list, setList] = useState<Status[]>([])
+    const { contextId } = useContext(ChangeContext)
+    const [toDo, setToDo] = useState<Status[]>([])
     useEffect(() => {
         async function GetList() {
-            const data = await Axios.get(`http://localhost:4000/todo/getTodos`)
-            console.log(data.data)
-            setList(data.data)
+            const toDoData = await getToDos()
+            console.log(toDoData.data)
+            setToDo(toDoData.data)
         }
         GetList()
-    }, [conId])
+    }, [contextId])
 
     return <div>
         <div className="listPlaceHolder">
             <AddList /><br />
         </div>
-        {list.map(e => <div>
+        {toDo.map(e => <div>
             <div className="listPlaceHolder">
-                Title: {e.title} | Status: {e.status} | Respo: {e.responsable} | Time: {moment(e.dueDate).format('l')}
-                <UpdateStatus idOf={e._id} statusOf={e.status} />
-                <DeleteList idOf={e._id} />
+                Title: {e.title} | Status: {e.status} | Respo: {e.responsable} |
+                Time: {moment(e.dueDate).format('l')} {e.finishedDate ? `| Finished: ${moment(e.finishedDate).format('l')}` : ''}
+                <UpdateStatus idOfToDo={e._id} statusOfToDo={e.status} />
+                <DeleteList idOfToDo={e._id} />
             </div>
         </div>)}
+        <div>
+            <GetById lists={toDo} />
+        </div>
     </div>
 }

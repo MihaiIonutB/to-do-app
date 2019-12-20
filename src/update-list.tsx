@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
-import Axios from 'axios'
 import { ChangeContext } from './page-control'
-import { tsPropertySignature } from '@babel/types'
+import { postUpdateStatus } from './access-points'
 
-export function UpdateStatus(prop: { idOf: string, statusOf: "PLANNED" | "BLOCKED" | "DONE" | "IN_PROGRESS" }) {
-    const { conId, setConId } = useContext(ChangeContext)
+export function UpdateStatus(prop: { idOfToDo: string, statusOfToDo: "PLANNED" | "BLOCKED" | "DONE" | "IN_PROGRESS" }) {
+    const { contextId: conId, setContextId: setConId } = useContext(ChangeContext)
     const handleChoice = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         try {
             console.log(event.currentTarget.value)
-            await Axios.post(`http://localhost:4000/todo/updateTodoStatus/${prop.idOf}`, { status: event.currentTarget.value })
+            await postUpdateStatus(prop.idOfToDo, prop.statusOfToDo)
             if (!conId) setConId(true)
         } catch (e) {
             console.log(e)
@@ -16,7 +15,7 @@ export function UpdateStatus(prop: { idOf: string, statusOf: "PLANNED" | "BLOCKE
         setConId(false)
     }
     return <div>
-        <select value={prop.statusOf} onChange={handleChoice}>
+        <select value={prop.statusOfToDo} onChange={handleChoice}>
             <option value="PLANNED" >PLANNED</option>
             <option value="IN_PROGRESS" >IN PROGRESS</option>
             <option value="DONE" >DONE</option>

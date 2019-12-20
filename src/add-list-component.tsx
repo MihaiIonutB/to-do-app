@@ -1,47 +1,50 @@
 import React, { useState, useContext } from 'react'
-import Axios from 'axios'
+import { postAddToDos } from './access-points'
 import { ChangeContext } from './page-control'
-interface ToDoType {
+interface ToDoModel {
     title: string,
     responsable: string,
     dueDate: Date | null,
     finishedDate?: Date | null,
 }
 export function AddList() {
-    const [list, setList] = useState<ToDoType>({ title: '', responsable: '', dueDate: new Date(), finishedDate: new Date() })
-    const { conId, setConId } = useContext(ChangeContext)
+    const [toDos, setToDos] = useState<ToDoModel>({ title: '', responsable: '', dueDate: new Date(), finishedDate: new Date() })
+    const { contextId, setContextId } = useContext(ChangeContext)
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault()
-            await Axios.post(`http://localhost:4000/todo/AddTodo`, list)
-            if (!conId) setConId(true)
+            await postAddToDos(toDos)
+            if (!contextId) setContextId(true)
 
         } catch (e) {
             console.log(e)
         }
-        setConId(false)
+        setContextId(false)
     }
     return <div>
         <form className="addListForm" onSubmit={handleSubmit}>
-            Title:<input type='text' placeholder="Title" value={list.title}
-                onChange={event => setList({
-                    ...list,
+            Title:<input type='text' placeholder="Title" value={toDos.title}
+                onChange={event => setToDos({
+                    ...toDos,
                     title: event.target.value
                 })}
-                required /><br />
-            Responsable:<input type='text' placeholder="Responsable" value={list.responsable}
-                onChange={event => setList({
-                    ...list,
+                required />
+            <br />
+            Responsable:<input type='text' placeholder="Responsable" value={toDos.responsable}
+                onChange={event => setToDos({
+                    ...toDos,
                     responsable: event.target.value
                 })}
-                required /><br />
+                required />
+            <br />
             Starting date:<input type='date'
-                onChange={event => setList({
-                    ...list,
+                onChange={event => setToDos({
+                    ...toDos,
                     dueDate: event.currentTarget.valueAsDate
                 })
-                } required /><br />
-            <input type='submit' value='Click me :3' />
+                } required />
+            <br />
+            <input type='submit' value='Add ToDo' />
         </form>
     </div>
 }

@@ -1,10 +1,19 @@
 import React from 'react'
-export function GetById(props: { idof: string }) {
+
+interface Status {
+    _id: string,
+    title: string,
+    status: "PLANNED" | "IN_PROGRESS" | "DONE" | "BLOCKED",
+    responsable: string,
+    dueDate: Date,
+    finishedDate?: Date,
+}
+export function GetById(props: { lists: Status[] }) {
 
     return <div>
         <form>
             <input type="text" placeholder="Id:"></input>
-            <input type="submit">Get me</input>
+            <input type="submit" value="Click me" />
         </form>
     </div>
 }

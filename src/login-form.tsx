@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import './main-page.css'
-import Axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { UserContext } from './page-control'
+import { postLogin } from './access-points'
 
 export function InputForm() {
     const { setUser: setGlobalUser } = useContext(UserContext)
@@ -11,7 +11,7 @@ export function InputForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault()
-            const res = await Axios.post(`http://localhost:4000/auth/login`, user)
+            const res = await postLogin(user)
             console.log(res)
             setUser({ email: '', password: '' })
             history.push('/ToDo');

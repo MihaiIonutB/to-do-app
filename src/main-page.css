@@ -6,6 +6,7 @@ html{
     margin:5px;
     border:2px solid;
     border-color: black;
+    border-radius: 10px;
 }
 body{
     height: 100%;
