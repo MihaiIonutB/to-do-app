@@ -3,10 +3,12 @@ import './main-page.css'
 import { useHistory } from 'react-router-dom'
 import { UserContext } from './page-control'
 import { postLogin } from './access-points'
+import { saveChange } from './save-change '
 
 export function InputForm() {
     const { setUser: setGlobalUser } = useContext(UserContext)
-    const [user, setUser,] = useState({ email: 'ion@admin.com', password: 'admin' })
+    const userState = useState({ email: 'ion@admin.com', password: 'admin' })
+    const [user, setUser] = userState
     const history = useHistory()
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
@@ -20,19 +22,17 @@ export function InputForm() {
             console.log(e)
         }
     }
+
     return <div >
         <form className="userInput" onSubmit={handleSubmit} >
-            <input type="email" placeholder="Email Adress" value={user.email}
-                onChange={event => setUser({
-                    ...user,
-                    email: event.target.value
-                })} required>
-            </input> <br />
-            <input type="password" placeholder="Password" value={user.password}
-                onChange={event => setUser({
-                    ...user, password: event.target.value
-                })} required>
-            </input> <br />
+            <input type='email' placeholder="Email Adress" value={user.email}
+                {...saveChange(userState, "email")}
+                required />
+            <br />
+            <input type='password' placeholder="Password" value={user.password}
+                {...saveChange(userState, "password")}
+                required />
+            <br />
             <button>Log in</button>
         </form>
     </div>

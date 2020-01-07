@@ -3,16 +3,16 @@ import { ChangeContext } from './page-control'
 import { postUpdateStatus } from './access-points'
 
 export function UpdateStatus(prop: { idOfToDo: string, statusOfToDo: "PLANNED" | "BLOCKED" | "DONE" | "IN_PROGRESS" }) {
-    const { contextId: conId, setContextId: setConId } = useContext(ChangeContext)
+    const { contextId, setContextId } = useContext(ChangeContext)
     const handleChoice = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         try {
             console.log(event.currentTarget.value)
-            await postUpdateStatus(prop.idOfToDo, prop.statusOfToDo)
-            if (!conId) setConId(true)
+            await postUpdateStatus(prop.idOfToDo, event.currentTarget.value)
+            if (!contextId) setContextId(true)
         } catch (e) {
             console.log(e)
         }
-        setConId(false)
+        setContextId(false)
     }
     return <div>
         <select value={prop.statusOfToDo} onChange={handleChoice}>

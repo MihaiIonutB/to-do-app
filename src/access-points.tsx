@@ -5,7 +5,7 @@ const baseUrl = 'http://localhost:4000/'
 export function postLogin(obj: { email: string, password: string }) {
     return Axios.post(`${baseUrl}auth/login`, obj)
 }
-export function postAddToDos(obj: {}) {
+export function postAddToDos(obj: { title: string, responsable: string, dueDate: Date }) {
     return Axios.post(`${baseUrl}todo/AddTodo`, obj)
 }
 export function deleteToDos(id: string) {
@@ -17,4 +17,7 @@ export function getToDos() {
 export function postUpdateStatus(idOfToDo: string, status: string) {
     return Axios.post(`${baseUrl}todo/updateTodoStatus/${idOfToDo}`, { status })
 
+}
+export function postGetToDoByStatus(status:string) {
+    return Axios.post(`${baseUrl}todo/getTodosByStatus`, { status })
 }
