@@ -6,7 +6,6 @@ export function UpdateStatus(prop: { idOfToDo: string, statusOfToDo: "PLANNED" |
     const { contextId, setContextId } = useContext(ChangeContext)
     const handleChoice = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         try {
-            console.log(event.currentTarget.value)
             await postUpdateStatus(prop.idOfToDo, event.currentTarget.value)
             if (!contextId) setContextId(true)
         } catch (e) {
