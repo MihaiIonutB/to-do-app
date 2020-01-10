@@ -3,7 +3,7 @@ import { deleteToDos } from './access-points'
 import { ChangeContext } from './app-routes'
 //import { useHandler } from './async-try'
 
-export function DeleteList(props: { idOfToDo: string }) {
+export function DeleteToDo(props: { idOfToDo: string }) {
     const { contextId, setContextId } = useContext(ChangeContext)
     // const del = useHandler(deleteToDos(props.idOfToDo),[]);
     const handleClick = async () => {
@@ -21,7 +21,7 @@ export function DeleteList(props: { idOfToDo: string }) {
     //     }
 
     // }
-   // const handleClick = useHandler(deleteToDos(props.idOfToDo))
+    // const handleClick = useHandler(deleteToDos(props.idOfToDo))
     return <button onClick={handleClick}>
         Delete
     </button>

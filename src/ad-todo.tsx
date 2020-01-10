@@ -4,7 +4,7 @@ import { ChangeContext } from './app-routes'
 import { saveChange } from './save-change '
 import { ToDoModel } from './to-do-interface'
 
-export function AddList() {
+export function AdToDo() {
     const toDoState = useState<ToDoModel>({ title: '', responsable: '', dueDate: new Date(), finishedDate: new Date() })
     const [toDos] = toDoState;
     const { contextId, setContextId } = useContext(ChangeContext)

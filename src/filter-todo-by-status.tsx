@@ -17,7 +17,7 @@ export function StatusFilter() {
         }
     }
     return <div>
-        <h1 style={{ textAlign: "center" }}>Welcome to the filtering page</h1>
+        <h1 style={{ textAlign: "center" }}>Filtering page</h1>
         <select value={valueOfStatus} onChange={handleChoice}>
             <option value="PLANNED" >PLANNED</option>
             <option value="IN_PROGRESS" >IN PROGRESS</option>

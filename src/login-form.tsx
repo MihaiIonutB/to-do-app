@@ -25,10 +25,14 @@ export function InputForm() {
 
     return <div >
         <form className="userInput" onSubmit={handleSubmit} >
+            Email:
+            <br/>
             <input type='email' placeholder="Email Adress" value={user.email}
                 {...saveChange(userState, "email")}
                 required />
             <br />
+            Password:
+            <br/>
             <input type='password' placeholder="Password" value={user.password}
                 {...saveChange(userState, "password")}
                 required />

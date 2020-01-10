@@ -4,46 +4,22 @@ import { postFilteredTodos } from './access-points'
 import { ObjectModel } from './to-do-interface'
 
 export function FilteredToDOs() {
-    const [page, setPage] = useState(0)
     const [ToDos, setToDos] = useState<ToDoModel[]>([])
     const [obj, setObj] = useState<ObjectModel>({ pageSize: 0, pageNr: 0 })
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-
         event.preventDefault()
-        console.log(obj)
         const toDoData = await postFilteredTodos(obj)
         setToDos(toDoData.data)
     }
-    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        if (obj.pageSize === 0) {
-        }
-        else {
-            if (event.currentTarget.value === '-1') {
-                if (page < 0) {
-                    setPage(0)
-                }
-                else {
-                    setPage(page - 1)
-                }
-            }
-            else if (event.currentTarget.value === '+1') {
-                setPage(page + 1)
-            }
-        }
+        const handleRequestMinus = async () => {
+            setObj({ ...obj, pageNr: obj.pageNr - 1 });
+            const toDoData = await postFilteredTodos({ ...obj, pageNr: obj.pageNr - 1 })
+            setToDos(toDoData.data)
     }
-    function handleRequest() {
-        console.log(page)
-        if (page === 0) {
-
-        }
-        else {
-            const handler = async () => {
-                setObj({ ...obj, pageNr: page })
-                const toDoData = await postFilteredTodos(obj)
-                setToDos(toDoData.data)
-            }
-            handler()
-        }
+        const handleRequestPlus = async () => {
+            setObj({ ...obj, pageNr: obj.pageNr + 1 });
+            const toDoData = await postFilteredTodos({ ...obj, pageNr: obj.pageNr + 1 })
+            setToDos(toDoData.data)
     }
     return <div>
         <h1 style={{ textAlign: "center" }}>
@@ -65,10 +41,9 @@ export function FilteredToDOs() {
         </div>
         <div>
             <div>
-                <button onClick={(event) => { handleClick(event); handleRequest() }} value={'-1'}> -1</button>
+                <button onClick={handleRequestMinus}> -1</button>
                 {obj.pageNr}
-                <button onClick={(event) => { handleClick(event); handleRequest() }} value={'+1'}> +1</button>
-
+                <button onClick={handleRequestPlus}> +1</button>
             </div>
         </div>
     </div>
