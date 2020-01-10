@@ -21,6 +21,6 @@ export function postUpdateStatus(idOfToDo: string, status: string) {
 export function postGetToDoByStatus(status: string) {
     return Axios.post(`${baseUrl}todo/getTodosByStatus`, { status })
 }
-export function postFilteredTodos(obj: { pageSize: number, pageNr: number, key?: string, status?: "PLANNED" | "IN_PROGRESS" | "DONE" | "BLOCKED" | undefined}) {
+export function postFilteredTodos(obj: { pageSize: number, pageNr: number, key?: string, status?: "PLANNED" | "IN_PROGRESS" | "DONE" | "BLOCKED" | undefined }) {
     return Axios.post(`${baseUrl}todo/getFilteredTodoS`, obj)
 }

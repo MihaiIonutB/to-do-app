@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import App from './login-page'
 //import { PrivateRoute } from './react-private-route'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { ListReturn } from './list-component'
-import { HeaderMsg } from './header-component'
-import { StatusFilter } from './filter-by-status'
+import { ListReturn } from './todo-display'
+import { HeaderMsg } from './welcome-user'
+import { StatusFilter } from './filter-todo-by-status'
 import { AccessButtons } from './anchor-menu'
-import { FilteredToDOs } from './filtered-todos'
+import { FilteredToDOs } from './paginate-todo'
 
 export const UserContext = React.createContext<{ user: string, setUser: (value: string) => void }>({ user: '', setUser: () => { } })
 export const ChangeContext = React.createContext<{ contextId: boolean, setContextId: (value: boolean) => void }>({ contextId: false, setContextId: () => { } })

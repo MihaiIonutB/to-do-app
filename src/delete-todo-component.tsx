@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { deleteToDos } from './access-points'
-import { ChangeContext } from './page-control'
+import { ChangeContext } from './app-routes'
 //import { useHandler } from './async-try'
 
 export function DeleteList(props: { idOfToDo: string }) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
-import { DisplayPage } from './page-control'
+import { DisplayPage } from './app-routes'
 
 //react-router
 ReactDOM.render(

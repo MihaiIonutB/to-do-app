@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { postAddToDos } from './access-points'
-import { ChangeContext } from './page-control'
-import {saveChange} from './save-change '
+import { ChangeContext } from './app-routes'
+import { saveChange } from './save-change '
 import { ToDoModel } from './to-do-interface'
 
 export function AddList() {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react'
 import moment from 'moment'
-import { ChangeContext } from './page-control'
-import { AddList } from './add-list-component'
-import { DeleteList } from './delete-list-component'
-import { UpdateStatus } from './update-list-status'
+import { ChangeContext } from './app-routes'
+import { AddList } from './ad-todo'
+import { DeleteList } from './delete-todo-component'
+import { UpdateStatus } from './update-todo-status'
 import { getToDos } from './access-points'
 import { ToDoModelStatus } from './to-do-interface'
 export function ListReturn() {

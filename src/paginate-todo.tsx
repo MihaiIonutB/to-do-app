@@ -3,8 +3,6 @@ import { ToDoModelStatus as ToDoModel } from './to-do-interface'
 import { postFilteredTodos } from './access-points'
 import { ObjectModel } from './to-do-interface'
 
-
-
 export function FilteredToDOs() {
     const [page, setPage] = useState(0)
     const [ToDos, setToDos] = useState<ToDoModel[]>([])

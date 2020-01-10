@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ChangeContext } from './page-control'
+import { ChangeContext } from './app-routes'
 import { postUpdateStatus } from './access-points'
 
 export function UpdateStatus(prop: { idOfToDo: string, statusOfToDo: "PLANNED" | "BLOCKED" | "DONE" | "IN_PROGRESS" }) {
