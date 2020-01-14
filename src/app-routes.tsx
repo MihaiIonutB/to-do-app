@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import App from './login-page'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { ToDoDisplay } from './todo-display'
-import { HeaderMsg } from './welcome-user'
-import { StatusFilter } from './filter-todo-by-status'
-import { AccessButtons } from './anchor-menu'
+import { AdToDo } from './ad-todo'
 import { FilteredToDOs } from './paginate-todo'
+import {Menu} from './menu'
 
 export const UserContext = React.createContext<{ user: string, setUser: (value: string) => void }>({ user: '', setUser: () => { } })
 export const ChangeContext = React.createContext<{ contextId: boolean, setContextId: (value: boolean) => void }>({ contextId: false, setContextId: () => { } })
@@ -16,17 +15,16 @@ export function DisplayPage() {
         <UserContext.Provider value={{ user, setUser }}>
             <Route exact path="/" component={App} />
             <ChangeContext.Provider value={{ contextId, setContextId }}>
-                <Route exact path="/ToDo" component={() => <div>
-                    <AccessButtons />
-                    <HeaderMsg />
+                <Route exact path="/home" component={() => <div>
+                    <Menu />
                     <ToDoDisplay />
                 </div>} />
-                <Route exact path="/Filter" component={() => <div>
-                    <AccessButtons />
-                    <StatusFilter />
+                <Route exact path="/adToDo" component={() => <div>
+                    <Menu />
+                    <AdToDo />
                 </div>} />
-                <Route exact path="/Pagination" component={() => <div>
-                    <AccessButtons />
+                <Route exact path="/toDoList" component={() => <div>
+                    <Menu />
                     <FilteredToDOs />
                 </div>} />
             </ChangeContext.Provider>

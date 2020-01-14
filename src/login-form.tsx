@@ -16,7 +16,7 @@ export function InputForm() {
             const res = await postLogin(user)
             console.log(res)
             setUser({ email: '', password: '' })
-            history.push('/ToDo');
+            history.push('/home');
             setGlobalUser(user.email)
         } catch (e) {
             console.log(e)

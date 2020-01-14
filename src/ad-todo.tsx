@@ -21,7 +21,7 @@ export function AdToDo() {
     }
 
     return <div>
-        <form className="addListForm" onSubmit={handleSubmit}>
+        <form className="listPlaceHolder" onSubmit={handleSubmit}>
             Title:<input type='text' placeholder="Title"
                 {...saveChange(toDoState, "title")}
                 required />

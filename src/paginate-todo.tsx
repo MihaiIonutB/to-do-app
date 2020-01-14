@@ -1,25 +1,36 @@
 import React, { useState } from 'react'
 import { ToDoModelStatus as ToDoModel } from './to-do-interface'
 import { postFilteredTodos } from './access-points'
+import {Spinner} from './spinner'
 import { ObjectModel } from './to-do-interface'
 
 export function FilteredToDOs() {
     const [ToDos, setToDos] = useState<ToDoModel[]>([])
-    const [obj, setObj] = useState<ObjectModel>({ pageSize: 0, pageNr: 0 })
+    const [obj, setObj] = useState<ObjectModel>({ pageSize: 0, pageNr: 1 })
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const toDoData = await postFilteredTodos(obj)
         setToDos(toDoData.data)
     }
-        const handleRequestMinus = async () => {
+    const handleRequestMinus = async () => {
+        if (obj.pageSize === 0) {
+
+        }
+        else {
             setObj({ ...obj, pageNr: obj.pageNr - 1 });
             const toDoData = await postFilteredTodos({ ...obj, pageNr: obj.pageNr - 1 })
             setToDos(toDoData.data)
+        }
     }
-        const handleRequestPlus = async () => {
+    const handleRequestPlus = async () => {
+        if (obj.pageSize === 0) {
+
+        }
+        else {
             setObj({ ...obj, pageNr: obj.pageNr + 1 });
             const toDoData = await postFilteredTodos({ ...obj, pageNr: obj.pageNr + 1 })
             setToDos(toDoData.data)
+        }
     }
     return <div>
         <h1 style={{ textAlign: "center" }}>
