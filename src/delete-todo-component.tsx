@@ -1,28 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { deleteToDos } from './access-points'
-import { ChangeContext } from './app-routes'
-//import { useHandler } from './async-try'
+import { useHandler } from './async-try'
+
 
 export function DeleteToDo(props: { idOfToDo: string }) {
-    const { contextId, setContextId } = useContext(ChangeContext)
-    // const del = useHandler(deleteToDos(props.idOfToDo),[]);
+    const withLoading = useHandler();
     const handleClick = async () => {
-        try {
-            await deleteToDos(props.idOfToDo)
-            if (!contextId) setContextId(true)
-        } catch (e) {
-            console.log(e)
-        }
-        setContextId(false)
+        await withLoading (deleteToDos(props.idOfToDo))
     }
-    // function handleClick(event:any){
-    //     return ()=> {
-    //         handler(deleteToDos(props.idOfToDo))
-    //     }
-
-    // }
-    // const handleClick = useHandler(deleteToDos(props.idOfToDo))
-    return <button onClick={handleClick}>
+  return <button onClick={handleClick}>
         Delete
     </button>
 }

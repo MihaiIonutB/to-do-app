@@ -17,12 +17,17 @@ export function ToDoDisplay() {
     }, [contextId])
     return <div>
         {toDo.map(e => <div key={e._id}>
-            <div className="listPlaceHolder" style={{backgroundColor: moment(e.dueDate) < moment() ? (e.status==="DONE"? "white":"red"): "white"}}>
+            <div className="listPlaceHolder" style={{
+                backgroundColor: e.status !=="DONE" ?
+                    (moment().isAfter(moment(e.dueDate).format()) ? "red" : "white") : "gray"
+            }}>
+                {console.log(moment(),moment(e.dueDate).format())}
                 Title: {e.title} | Status: {e.status} | Respo: {e.responsable} |
                 Date: {moment(e.dueDate).format('l')} {e.finishedDate ? `| Finished: ${moment(e.finishedDate).format('l')}` : ''}
-                <UpdateStatus idOfToDo={e._id} statusOfToDo={e.status} />
-                <DeleteToDo idOfToDo={e._id} />
+                <div style={{ display: e.status === "DONE" ? "none" : "block" }}><UpdateStatus idOfToDo={e._id} statusOfToDo={e.status} /></div>
+                <div> <DeleteToDo idOfToDo={e._id} /></div>
             </div>
-        </div>)}
-    </div>
+        </div>)
+        }
+    </div >
 }

@@ -1,47 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ToDoModelStatus as ToDoModel } from './to-do-interface'
 import { postFilteredTodos } from './access-points'
-import {Spinner} from './spinner'
 import { ObjectModel } from './to-do-interface'
 
 export function FilteredToDOs() {
     const [ToDos, setToDos] = useState<ToDoModel[]>([])
     const [obj, setObj] = useState<ObjectModel>({ pageSize: 0, pageNr: 1 })
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const toDoData = await postFilteredTodos(obj)
-        setToDos(toDoData.data)
-    }
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+        async function GetToDo() {
+            setIsLoading(true)
+            try {
+                const getData = await postFilteredTodos(obj)
+                setToDos(getData.data)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        GetToDo()
+    }, [obj.pageNr, obj.pageSize])
     const handleRequestMinus = async () => {
-        if (obj.pageSize === 0) {
+        if (isLoading || obj.pageSize === 0 || obj.pageNr <= 0) return;
 
-        }
-        else {
-            setObj({ ...obj, pageNr: obj.pageNr - 1 });
-            const toDoData = await postFilteredTodos({ ...obj, pageNr: obj.pageNr - 1 })
-            setToDos(toDoData.data)
-        }
+        setObj({ ...obj, pageNr: obj.pageNr - 1 });
+
     }
     const handleRequestPlus = async () => {
-        if (obj.pageSize === 0) {
+        if (isLoading || obj.pageSize === 0 || !ToDos.length) {
 
         }
         else {
             setObj({ ...obj, pageNr: obj.pageNr + 1 });
-            const toDoData = await postFilteredTodos({ ...obj, pageNr: obj.pageNr + 1 })
-            setToDos(toDoData.data)
         }
     }
     return <div>
         <h1 style={{ textAlign: "center" }}>
-            Pagination
         </h1>
         <div>
-            <form onSubmit={handleSubmit}>
+            Nr. of stuff/page:
                 <input type="number" onChange={event => { setObj({ ...obj, pageSize: event.target.valueAsNumber }) }}
-                    value={obj.pageSize} ></input>
-                <input type="submit"></input>
-            </form>
+                value={obj.pageSize}></input>
+            <input type="submit"></input>
         </div>
         <div>
             {ToDos.map(e => <div key={e._id}>
@@ -56,6 +55,10 @@ export function FilteredToDOs() {
                 {obj.pageNr}
                 <button onClick={handleRequestPlus}> +1</button>
             </div>
+        </div>
+        <div>
+            <input type="text"></input>
+            <input type="text" ></input>
         </div>
     </div>
 }
